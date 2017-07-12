@@ -9,7 +9,12 @@ set shiftwidth=3
 " On pressing tab, insert 3 spaces
 set expandtab
 " System clipboard as buffer
-set clipboard=unnamedplus
+let os = substitute(system('uname'), "\n", "", "")
+if os == "Darwin"
+   set clipboard=unnamed
+elseif os == "Linux"
+   set clipboard=unnamedplus
+endif
 " Enable syntax highliting
 syntax enable
 " Run Autoformat when a buffer is saved
