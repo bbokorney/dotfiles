@@ -4,6 +4,6 @@
 
 ```
 $ cd ~
-$ git clone git@github.com:bbokorney/dotfiles.git
+$ git clone --recursive git@github.com:bbokorney/dotfiles.git
 $ sh ./dotfiles/symlink.sh
 ```
