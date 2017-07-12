@@ -12,10 +12,10 @@ set expandtab
 set clipboard=unnamedplus
 " Run Autoformat when a buffer is saved
 au BufWrite * :Autoformat
-" Set the default color scheme
-colorscheme molokai
 " Load plugins with Pathogen
 execute pathogen#infect()
+" Set the default color scheme
+colorscheme molokai
 " Map Ctrl+\ to toggle NERDTree
 :map <C-\> :NERDTreeToggle<CR>
 " Always show hidden files in NerdTree
