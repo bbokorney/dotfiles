@@ -10,6 +10,8 @@ set shiftwidth=3
 set expandtab
 " System clipboard as buffer
 set clipboard=unnamedplus
+" Enable syntax highliting
+syntax enable
 " Run Autoformat when a buffer is saved
 au BufWrite * :Autoformat
 " Load plugins with Pathogen
