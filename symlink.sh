@@ -2,7 +2,7 @@
 
 set -ex
 
-for file in $(echo .bashrc .inputrc .vim .vimrc); do
-   ln -fs ~/dotfiles/$file ~/$file
+for file in $(echo .bash_profile .bashrc .inputrc .vim .vimrc); do
+   [ ! -L ~/$file ] && ln -sf ~/dotfiles/$file ~/$file
 done
 
