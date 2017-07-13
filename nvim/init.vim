@@ -60,6 +60,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'flazz/vim-colorschemes'
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Elixr
+Plug 'elixir-lang/vim-elixir'
 
 call plug#end()
 
