@@ -84,3 +84,5 @@ colorscheme molokai
 let NERDTreeShowHidden=1
 " Map Ctrl+\ to toggle NERDTree
 :map <C-\> :NERDTreeToggle<CR>
+" Map Ctrl+0 to toggle NERDTreeFocus
+:map <C-0> :NERDTreeFocus<CR>
