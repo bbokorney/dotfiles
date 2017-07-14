@@ -57,16 +57,28 @@ set expandtab
 call plug#begin('~/.config/nvim/plugged')
 
 " Color schemes
-Plug 'flazz/vim-colorschemes'
+Plug 'tomasr/molokai'
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Shows modified files via git in NERDTree
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " Elixr
 Plug 'elixir-lang/vim-elixir'
+" Matching do + end
+Plug 'tpope/vim-endwise'
+" Golang
+Plug 'fatih/vim-go'
+" For commenting code
+Plug 'tpope/vim-commentary'
+" For surrounding things
+Plug 'tpope/vim-surround'
+" Shows modified lines via git in the gutter
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
 " Set the default color scheme
-colorscheme spacegray
+colorscheme molokai
 
 " Always show hidden files in NerdTree
 let NERDTreeShowHidden=1
