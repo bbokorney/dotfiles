@@ -4,8 +4,10 @@ alias gs='git status'
 # ls
 if ls --help 2>&1 | grep -q -- --color; then
 alias ls='ls --color=auto -F'
+alias ll='ls --color=auto -Flah'
 else
 alias ls='ls -FG'
+alias ll='ls -FGlah'
 fi
 
 # grep
