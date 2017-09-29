@@ -64,6 +64,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " Elixr
 Plug 'elixir-lang/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 " Matching do + end
 Plug 'tpope/vim-endwise'
 " Golang
