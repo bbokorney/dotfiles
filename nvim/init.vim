@@ -46,11 +46,11 @@ set cursorline
 
 
 filetype plugin indent on
-" Show existing tab with 3 spaces width
-set tabstop=3
-" When indenting with '>', use 3 spaces width
-set shiftwidth=3
-" On pressing tab, insert 3 spaces
+" Show existing tab with 2 spaces width
+set tabstop=2
+" When indenting with '>', use 2 spaces width
+set shiftwidth=2
+" On pressing tab, insert 2 spaces
 set expandtab
 
 " Plugins
@@ -74,15 +74,21 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 " Shows modified lines via git in the gutter
 Plug 'airblade/vim-gitgutter'
+" Insert matching parens, brackets, quotes, etc
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
 " Set the default color scheme
 colorscheme molokai
 
-" Always show hidden files in NerdTree
+" NERDTree
+" Always show hidden files in NERDTree
 let NERDTreeShowHidden=1
 " Map Ctrl+\ to toggle NERDTree
 :map <C-\> :NERDTreeToggle<CR>
 " Map Ctrl+0 to toggle NERDTreeFocus
 :map <C-0> :NERDTreeFocus<CR>
+
+" vim-go
+let g:go_fmt_command = "goimports"
