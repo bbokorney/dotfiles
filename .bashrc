@@ -39,9 +39,13 @@ calc_git_star() {
 
 prompt_command() {
   # figure out the git status
-  __git_ps1 '%s' > $BASH_PROMPT_DIR/git_branch  &
-
+  if [ -d .git ]; then
+    __git_ps1 '%s' > $BASH_PROMPT_DIR/git_branch  &
   calc_git_star &
+  else
+    echo '' > $BASH_PROMPT_DIR/git_branch
+    echo '' > $BASH_PROMPT_DIR/git_star
+  fi
 
   # get the current k8s context
   kubectl config current-context > $BASH_PROMPT_DIR/k8s_context & 
