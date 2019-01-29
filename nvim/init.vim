@@ -1,5 +1,6 @@
 " Reamp Esc to kj in insert mode
 :imap kj <Esc>
+:map <C-B> :b# <CR>
 
 let os = substitute(system('uname'), "\n", "", "")
 if os == "Darwin"
@@ -84,12 +85,16 @@ call plug#end()
 colorscheme molokai
 
 " NERDTree
+" Close the NERDTree pane after opening a file
+let NERDTreeQuitOnOpen = 1
 " Always show hidden files in NERDTree
 let NERDTreeShowHidden=1
+" Make NERDTree prettier
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 " Map Ctrl+\ to toggle NERDTree
 :map <C-\> :NERDTreeToggle<CR>
-" Map Ctrl+0 to toggle NERDTreeFocus
-:map <C-0> :NERDTreeFocus<CR>
 
 " vim-go
 let g:go_fmt_command = "goimports"
+:autocmd BufWritePre *.go :GoBuild
