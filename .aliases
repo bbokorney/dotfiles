@@ -17,3 +17,5 @@ alias fgrep='fgrep --color=auto'
 
 # Vim
 alias vim='nvim'
+
+alias pwc='pwd | pbcopy'
