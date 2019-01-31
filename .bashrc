@@ -27,7 +27,6 @@ export PROMPT_COMMAND='prompt_command'
 export BASH_PROMPT_DIR="/Users/bakerb/.bash_prompt_dir"
 
 calc_git_star() {
-  color=''
   if [[ -z $(git status -s) ]]; then
     echo '' > $BASH_PROMPT_DIR/git_star
     echo '\e[92m' > $BASH_PROMPT_DIR/git_star_color
@@ -39,7 +38,7 @@ calc_git_star() {
 
 prompt_command() {
   # figure out the git status
-  if [ -d .git ]; then
+  if git rev-parse --is-inside-work-tree &> /dev/null; then
     __git_ps1 '%s' > $BASH_PROMPT_DIR/git_branch  &
   calc_git_star &
   else

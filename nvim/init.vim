@@ -78,6 +78,10 @@ Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 " Insert matching parens, brackets, quotes, etc
 Plug 'jiangmiao/auto-pairs'
+" Rust
+Plug 'rust-lang/rust.vim'
+" Syntastic
+Plug 'vim-syntastic/syntastic'
 
 call plug#end()
 
@@ -97,4 +101,17 @@ let NERDTreeDirArrows = 1
 
 " vim-go
 let g:go_fmt_command = "goimports"
-:autocmd BufWritePre *.go :GoBuild
+:autocmd BufWritePre *.go :GoMetaLinter
+
+" rust-vim
+let g:rustfmt_autosave = 1
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
