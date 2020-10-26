@@ -27,7 +27,12 @@ set ignorecase smartcase
 set smartcase
 
 " Deactivate Wrapping
-set nowrap
+" set nowrap
+set wrap
+set linebreak
+set nolist  " list disables linebreak
+set textwidth=0
+set wrapmargin=0
 " Treat all numbers as decimal
 set nrformats=
 " I don't like Swapfiles
@@ -44,7 +49,11 @@ set t_Co=256
 set hidden
 " hightlight cursor position
 set cursorline
-
+" Show filename in status line
+set statusline+=%F
+" Don't add a newline to end of files
+" when they are opened
+set nofixendofline
 
 filetype plugin indent on
 " Show existing tab with 2 spaces width
@@ -82,6 +91,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'rust-lang/rust.vim'
 " Syntastic
 Plug 'vim-syntastic/syntastic'
+" Fuzzy Find
+Plug 'junegunn/fzf.vim'
+" Terraform
+Plug 'hashivim/vim-terraform'
+" Fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
@@ -101,7 +116,12 @@ let NERDTreeDirArrows = 1
 
 " vim-go
 let g:go_fmt_command = "goimports"
+let g:go_metalinter_enabled = ['vet']
+let g:go_build_tags = 'integration'
+let g:go_addtags_transform = 'camelcase'
 :autocmd BufWritePre *.go :GoMetaLinter
+:autocmd BufWritePre *_test.go :GoTestCompile
+:autocmd FileType go map <buffer> <C-i> :GoIfErr<CR>
 
 " rust-vim
 let g:rustfmt_autosave = 1
@@ -110,8 +130,16 @@ let g:rustfmt_autosave = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_sh_checkers = []
+let g:syntastic_java_checkers = []
+
+" Terraform
+let g:terraform_fmt_on_save=1
+
+" Ctrl P
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip,./vendor/*
+let g:ctrlp_custom_ignore = '\v[\/]vendor$'
