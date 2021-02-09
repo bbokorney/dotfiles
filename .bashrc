@@ -10,6 +10,8 @@ if [ -f  ~/.git-prompt.sh ]; then
    source ~/.git-prompt.sh
 fi
 
+[ -f ~/dotfiles/.kubectl_aliases ] && source ~/dotfiles/.kubectl_aliases
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
       source $(brew --prefix)/etc/bash_completion
@@ -22,7 +24,7 @@ if [ -f '/Users/bakerb/google-cloud-sdk/path.bash.inc' ]; then . '/Users/bakerb/
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/bakerb/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/bakerb/google-cloud-sdk/completion.bash.inc'; fi
 
-export PROMPT_COMMAND='prompt_command'
+# export PROMPT_COMMAND='prompt_command'
 
 export BASH_PROMPT_DIR="/Users/bakerb/.bash_prompt_dir"
 

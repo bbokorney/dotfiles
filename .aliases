@@ -19,3 +19,11 @@ alias fgrep='fgrep --color=auto'
 alias vim='nvim'
 
 alias pwc='pwd | pbcopy'
+
+# Fly
+alias fs='fly -t strat'
+alias fs1='fly -t strat1'
+alias fn='fly -t nu'
+
+# Docker
+alias dcom='docker-compose'

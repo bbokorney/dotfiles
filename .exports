@@ -1,4 +1,6 @@
 export PATH=$PATH:~/bin
 export GOPATH=~/prog/go
+export GOPRIVATE='pkg.ulti.io,git.ulti.io'
+export GO111MODULE=on
 export PATH=~/.npm-global/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin

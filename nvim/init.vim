@@ -91,13 +91,16 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'rust-lang/rust.vim'
 " Syntastic
 Plug 'vim-syntastic/syntastic'
-" Fuzzy Find
-Plug 'junegunn/fzf.vim'
 " Terraform
 Plug 'hashivim/vim-terraform'
 " Fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
-
+" Asynchronous linter
+Plug 'dense-analysis/ale'
+" Python
+Plug 'vim-scripts/indentpython.vim'
+Plug 'tell-k/vim-autopep8'
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 
 " Set the default color scheme
@@ -136,10 +139,31 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_sh_checkers = []
 let g:syntastic_java_checkers = []
+let g:syntastic_python_python_exec = 'python3'
 
 " Terraform
 let g:terraform_fmt_on_save=1
 
 " Ctrl P
 " set wildignore+=*/tmp/*,*.so,*.swp,*.zip,./vendor/*
-let g:ctrlp_custom_ignore = '\v[\/]vendor$'
+let g:ctrlp_custom_ignore = 'node_modules\|\v[\/]vendor$'
+
+" ALE
+let g:ale_linters_explicit = 1
+let b:ale_linters = ['eslint']
+let b:ale_fixers = {'javascript': ['eslint']}
+let b:ale_fix_on_save = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+"
+
+" AutoPEP8
+let g:autopep8_on_save = 1
+let g:autopep8_disable_show_diff=1
+
+" Python tags
+set tags=tags
+autocmd BufWritePost *.py silent! !ctags -R --python-kinds=-i --languages=python 2>; /dev/null &;
+nnoremap gd <C-]>
