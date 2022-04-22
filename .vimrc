@@ -1,6 +1,11 @@
 " Reamp Esc to kj in insert mode
 imap kj <Esc>
+
+" Map Ctrl+b to previous buffer
 map <C-b> :b#<CR>
+
+" Map leader to comma
+let mapleader = "," 
 
 let os = substitute(system('uname'), "\n", "", "")
 if os == "Darwin"
@@ -71,7 +76,15 @@ set updatetime=300
 call plug#begin('~/.config/nvim/plugged')
 
 " Color schemes
-Plug 'tomasr/molokai'
+" Plug 'tomasr/molokai'
+Plug 'fatih/molokai'
+" Plug 'sickill/vim-monokai'
+Plug 'kajamite/vim-monokai2'
+" Plug 'rickharris/vim-monokai'
+Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
+" Golang
+Plug 'fatih/vim-go'
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Shows modified files via git in NERDTree
@@ -96,7 +109,7 @@ Plug 'vim-syntastic/syntastic'
 " Terraform
 Plug 'hashivim/vim-terraform'
 " Fuzzy finder
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 " Asynchronous linter
 Plug 'dense-analysis/ale'
 " Python
@@ -108,10 +121,35 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" fzf
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 " Set the default color scheme
+set background=dark
+" colorscheme molokai
+" colorscheme monokai
+" colorscheme monokai2
+" colorscheme onedark
+" colorscheme gruvbox
+let g:rehash256 = 1
+let g:molokai_original = 1
 colorscheme molokai
+
+" Go
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_gopls_enabled = 0
+let g:go_def_mapping_enabled = 0
 
 " NERDTree
 " Close the NERDTree pane after opening a file
@@ -143,7 +181,7 @@ let g:syntastic_python_python_exec = 'python3'
 let g:terraform_fmt_on_save=1
 
 " Ctrl P
-let g:ctrlp_custom_ignore = 'node_modules\|\v[\/]vendor$'
+" let g:ctrlp_custom_ignore = 'node_modules\|\v[\/]vendor$'
 
 " TODO: clean this up, maybe no longer need it
 " ALE
@@ -231,3 +269,14 @@ autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.org
 " Change cursor depending on insert vs normal mode
 au InsertEnter * silent execute "!echo -en \<esc>[5 q"
 au InsertLeave * silent execute "!echo -en \<esc>[2 q"
+
+" fzf
+set rtp+=/usr/local/opt/fzf
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>f :Files<CR>
+map <C-p> :Files<CR>
+nnoremap <silent> <Leader>g :Rg<CR>
+command! -bang -nargs=* Rg
+ \ call fzf#vim#grep(
+ \  'rg --column --line-number --no-heading --color=always --smart-case -g !vendor/* '.shellescape(<q-args>),
+ \ 1, {}), <bang>0)

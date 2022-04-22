@@ -1,0 +1,13 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "json",
+    "sh"
+  ],
+  "eslint.autoFixOnSave": true,
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
+  "sh.enable": true,
+  "sh.highlightParsingErrors": true
+}

@@ -63,6 +63,8 @@ set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
 
+set updatetime=300
+
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 
@@ -101,6 +103,12 @@ Plug 'dense-analysis/ale'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'tell-k/vim-autopep8'
 Plug 'davidhalter/jedi-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+" Typescript
+Plug 'leafgarland/typescript-vim'
+" Plug 'Shougo/deoplete.nvim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Set the default color scheme
@@ -149,13 +157,20 @@ let g:terraform_fmt_on_save=1
 let g:ctrlp_custom_ignore = 'node_modules\|\v[\/]vendor$'
 
 " ALE
+" let g:ale_completion_enabled = 1
+" set omnifunc=ale#completion#OmniFunc
 let g:ale_linters_explicit = 1
-let b:ale_linters = ['eslint']
-let b:ale_fixers = {'javascript': ['eslint']}
-let b:ale_fix_on_save = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" let g:ale_set_loclist = 0
+" let g:ale_linters = {'javascript': ['eslint'],'typescript': ['eslint'],'typescriptreact': ['tsserver','eslint', 'tslint']}
+" let g:ale_fixers = {'javascript': ['eslint'],'typescript': ['eslint','tslint'],'typescriptreact': ['eslint','tslint']}
+" let g:ale_fix_on_save = 1
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" nnoremap K :ALEHover<CR>
+" autocmd FileType javascript map <buffer> gd :ALEGoToDefinition<CR>
+" autocmd FileType typescript map <buffer> gd :ALEGoToDefinition<CR>
+" autocmd FileType typescriptreact map <buffer> gd :ALEGoToDefinition<CR>
+" nnoremap <silent> gr :ALEFindReferences<CR>
+" let g:ale_set_loclist = 1
 " let g:ale_set_quickfix = 1
 "
 
@@ -167,3 +182,69 @@ let g:autopep8_disable_show_diff=1
 set tags=tags
 autocmd BufWritePost *.py silent! !ctags -R --python-kinds=-i --languages=python 2>; /dev/null &;
 nnoremap gd <C-]>
+
+" CoC
+let g:coc_global_extensions = ['coc-json', 'coc-eslint', 'coc-tsserver']
+
+" Ctrl + k/j to move through diagnostic errors
+nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+function! s:gotoDefinition() abort
+  let l:current_tag = expand('<cWORD>')
+
+  let l:current_position    = getcurpos()
+  let l:current_position[0] = bufnr()
+
+  let l:current_tag_stack = gettagstack()
+  let l:current_tag_index = l:current_tag_stack['curidx']
+  let l:current_tag_items = l:current_tag_stack['items']
+
+  if CocAction('jumpDefinition')
+    let l:new_tag_index = l:current_tag_index + 1
+    let l:new_tag_item = [#{tagname: l:current_tag, from: l:current_position}]
+    let l:new_tag_items = l:current_tag_items[:]
+    if l:current_tag_index <= len(l:current_tag_items)
+      call remove(l:new_tag_items, l:current_tag_index - 1, -1)
+    endif
+    let l:new_tag_items += l:new_tag_item
+
+    call settagstack(winnr(), #{curidx: l:new_tag_index, items: l:new_tag_items}, 'r')
+  endif
+endfunction
+
+nmap gd :call <SID>gotoDefinition()<CR>
+" nmap gi :call <SID>goto_tag("Implementation")<CR>
+" nmap gr :call <SID>goto_tag("References")<CR>
+" set tagfunc=CocTagFunc
