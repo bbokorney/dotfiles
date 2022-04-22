@@ -59,3 +59,14 @@ prompt_command() {
 
   export PS1="[\e[36m\w\e[0m] [$git] [\e[35m$k8sContext\e[0m] [\e[93m\$?\e[0m]\n\e[34m\\$\[$(tput sgr0)\]\e[0m "
 }
+
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWCOLORHINTS=true
+export PROMPT_COMMAND='__git_ps1 "[\$?] [\w]" "\n\\\$ " " [%s]"'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+unset PREFIX

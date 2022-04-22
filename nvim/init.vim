@@ -70,6 +70,11 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Color schemes
 Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'joshdick/onedark.vim'
+Plug 'sstallion/vim-wtf'
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Shows modified files via git in NERDTree
@@ -109,6 +114,12 @@ Plug 'leafgarland/typescript-vim'
 " Plug 'Shougo/deoplete.nvim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'davidhalter/jedi-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+" Prisma
+Plug 'pantharshit00/vim-prisma'
+
+Plug 'Shougo/deoplete.nvim'
 call plug#end()
 
 " Set the default color scheme
@@ -171,8 +182,26 @@ let g:ale_linters_explicit = 1
 " autocmd FileType typescriptreact map <buffer> gd :ALEGoToDefinition<CR>
 " nnoremap <silent> gr :ALEFindReferences<CR>
 " let g:ale_set_loclist = 1
+" https://freshman.tech/vim-javascript/
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+let g:ale_linters_explicit = 1
+let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'typescript': ['eslint'], 'typescriptreact': ['tsserver', 'esint','tslint']}
+" let b:ale_fixers = {'javascript': ['eslint']}
+" let b:ale_linters = ['prettier']
+let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['eslint',' tslint'], 'typescriptreact': ['eslint','tslint']}
+let g:ale_fix_on_save = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nnoremap K :ALEHover<cr>
+autocmd FileType javascript map <buffer> gd :ALEGoToDefinition<CR>
+autocmd FileType typescript map <buffer> gd :ALEGoToDefinition<CR>
+autocmd FileType typescriptreact map <buffer> gd :ALEGoToDefinition<CR>
+nnoremap <silent> FileType gr :ALEFindReferences<CR>
+" let g:ale_set_loclist = 0
 " let g:ale_set_quickfix = 1
-"
+" Javascript/JS/JSX
+" autocmd BufRead,BufWritePre *.js normal gg=G
 
 " AutoPEP8
 let g:autopep8_on_save = 1
