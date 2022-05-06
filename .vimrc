@@ -126,6 +126,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+" Tags
+Plug 'preservim/tagbar'
 call plug#end()
 
 " Set the default color scheme
@@ -274,9 +276,12 @@ au InsertLeave * silent execute "!echo -en \<esc>[2 q"
 set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>a :BTags<CR>
 map <C-p> :Files<CR>
 nnoremap <silent> <Leader>g :Rg<CR>
 command! -bang -nargs=* Rg
  \ call fzf#vim#grep(
  \  'rg --column --line-number --no-heading --color=always --smart-case -g !vendor/* '.shellescape(<q-args>),
  \ 1, {}), <bang>0)
+
+nnoremap <silent> <Leader>y :Tagbar<CR>

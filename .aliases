@@ -1,5 +1,9 @@
 # Git
 alias gs='git status'
+alias gd='git diff'
+alias gap='git add -p'
+alias gcom='git commit -m'
+alias gp='git push'
 
 # ls
 if ls --help 2>&1 | grep -q -- --color; then
